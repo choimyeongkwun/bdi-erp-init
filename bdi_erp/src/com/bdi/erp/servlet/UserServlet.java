@@ -2,7 +2,10 @@ package com.bdi.erp.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +35,13 @@ public class UserServlet extends HttpServlet {
 				out.println("로긴 실패했어");
 				out.println("로긴 실패했어");
 			} 
+		}else if(cmd.equals("list")) {
+			String key = request.getParameter("key");
+			String val = request.getParameter("val");
+			List<Map<String,String>> userList = us.getUserList(key, val);
+			request.setAttribute("userList",userList);
+			RequestDispatcher rd = request.getRequestDispatcher("/views"+uri);
+			rd.forward(request,response);
 		}else if(cmd.equals("join")) {
 
 		}else {
